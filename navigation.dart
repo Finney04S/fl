@@ -120,53 +120,83 @@ class _DetailsState extends State<Details>{
 
 resultscreen.dart
 
-
 import 'package:flutter/material.dart';
 import 'package:samp/budget.dart';
 
-class result extends StatelessWidget{
+class result extends StatelessWidget {
   result({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final dat=ModalRoute.of(context)!.settings.arguments as Budget;
+    final dat = ModalRoute.of(context)!.settings.arguments as Budget;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("results are ici",style: TextStyle(color: Colors.yellow),),
+        title: Text(
+          "results",
+          style: TextStyle(color: Colors.yellow),
+        ),
         backgroundColor: Colors.black,
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.all(16),
         children: [
           Card(
             elevation: 5,
-            child:Text("welcomse: ${dat.name}"),
+            child: ListTile(
+              title: Text("Welcome"),
+              subtitle: Text(dat.name),
+            ),
           ),
           Card(
             elevation: 5,
-            child:Text("income: ${dat.income.toString()}"),
+            child: ListTile(
+              title: Text("Income"),
+              subtitle: Text(dat.income.toString()),
+            ),
           ),
           Card(
             elevation: 5,
-            child:Text("rent: ${dat.rent.toString()}"),
+            child: ListTile(
+              title: Text("Rent"),
+              subtitle: Text(dat.rent.toString()),
+            ),
           ),
           Card(
             elevation: 5,
-            child:Text("expense${dat.expense.toString()}"),
+            child: ListTile(
+              title: Text("Expense"),
+              subtitle: Text(dat.expense.toString()),
+            ),
           ),
           Card(
             elevation: 0,
-            child: ((dat.income-dat.expense-dat.rent)>0?Text("sucess",style:TextStyle(color: Colors.green),)
-            :Text("you are over sepding",style:TextStyle(color: Colors.red))
+            child: ListTile(
+              title: Text(
+                (dat.income - dat.expense - dat.rent) > 0
+                    ? "Success"
+                    : "Over Spending",
+                style: TextStyle(
+                  color: (dat.income - dat.expense - dat.rent) > 0
+                      ? Colors.green
+                      : Colors.red,
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 30,),
-          ElevatedButton(onPressed: (){
-            Navigator.pop(context);
-          }, child: Text("back"))
+          const SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("Back"),
+          ),
         ],
       ),
     );
   }
 }
+
 
 
 
